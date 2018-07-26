@@ -1,0 +1,80 @@
+@function convert-unit($value, $unit) {
+  $convertable-units: px rem;
+  $conversion-factors: 1 1rem/10px;
+  @if index($convertable-units, unit($value)) and index($convertable-units, $unit) {
+    @return $value / nth($conversion-factors, index($convertable-units, unit($value))) * nth($conversion-factors, index($convertable-units, $unit));
+  } @else {
+    @error 'Cannot convert #{unit($value)} to #{$unit}';
+  }
+}
+
+/// linear-interpolation
+/// Calculate the definition of a line between two points
+/// @param $map - A SASS map of viewport widths and size value pairs
+/// @returns A linear equation as a calc() function
+/// @example
+///   font-size: linear-interpolation((320px: 18px, 768px: 26px));
+/// @author Jake Wilson <jake.e.wilson@gmail.com>
+@function linear-interpolation($map) {
+  $keys: map-keys($map);
+  @if (length($keys) != 2) {
+    @error 'linear-interpolation() $map must be exactly 2 values';
+  }
+  $unit: unit(map-get($map, nth($keys, 1))); // The slope
+  $m: convert-unit(map-get($map, nth($keys, 2)) - map-get($map, nth($keys, 1)), $unit) / convert-unit(nth($keys, 2) - nth($keys, 1), $unit); // The y-intercept
+  $b: convert-unit(map-get($map, nth($keys, 1)), $unit) - $m * convert-unit(nth($keys, 1), $unit); // Determine if the sign should be positive or negative
+  $sign: '+';
+  @if ($b < 0) {
+    $sign: '-';
+    $b: abs($b);
+  }
+  @return calc(#{$m*100}vw #{$sign} #{$b});
+}
+
+/// responsive-fluid
+/// Generate linear interpolated size values through multiple break points
+/// @param $property - A string CSS property name
+/// @param $map - A Sass map of viewport unit and size value pairs
+/// @requires function linear-interpolation
+/// @requires function map-sort
+/// @example
+///   @include responsive-fluid('font-size', (576px: 22px, 768px: 24px, 992px: 34px));
+/// @author Jake Wilson <jake.e.wilson@gmail.com>
+@mixin responsive-fluid($property, $map) {
+
+  $length: length(map-keys($map));
+  @if ($length < 2) {
+    @error 'responsive-fluid() $map requires at least values';
+  }
+
+  $keys: map-keys($map); // Minimum size
+  #{$property}: map-get($map, nth($keys, 1)); // Interpolated size through breakpoints
+
+  @for $i from 1 through ($length - 1) {
+    @include mq($from: nth($keys, $i)) {
+      $value1: map-get($map, nth($keys, $i));
+      $value2: map-get($map, nth($keys, ($i + 1))); // If values are not equal, perform linear interpolation
+      @if ($value1 != $value2) {
+        #{$property}: linear-interpolation(( map-get($mq-breakpoints, nth($keys, $i)): $value1, map-get($mq-breakpoints, nth($keys, ($i+1))): $value2));
+      } @else {
+        #{$property}: $value1;
+      }
+    }
+  }
+
+  // Maximum size
+  @include mq($from: nth($keys, $length)) {
+    #{$property}: map-get($map, nth($keys, $length));
+  }
+}
+
+@mixin responsive($property, $map) {
+  // Minimum size
+  $keys: map-keys($map);
+  #{$property}: map-get($map, nth($keys, 1));
+  @each $key, $value in $map {
+    @include mq($from: $key) {
+      #{$property}: $value;
+    }
+  }
+}

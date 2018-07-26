@@ -1,0 +1,46 @@
+{
+  "name": "simongodbout.com",
+  "version": "0.0.1",
+  "description": "My website",
+  "main": "index.js",
+  "dependencies": {
+    "autoprefixer": "^9.0.1",
+    "browser-sync": "^2.24.6",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-postcss": "^7.0.1",
+    "gulp-sass": "^4.0.1",
+    "gulp-sass-glob": "^1.0.9",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.1",
+    "imagemin-mozjpeg": "^7.0.0",
+    "imagemin-pngquant": "^6.0.0",
+    "normalize-scss": "^7.0.1",
+    "pump": "^3.0.0",
+    "sass-loader": "^7.0.3",
+    "sass-mq": "^5.0.0",
+    "susy": "^3.0.5",
+    "yargs": "^12.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimonGodbout/simongodbout.com.git"
+  },
+  "keywords": [
+    "Portfolio",
+    "Personal",
+    "website"
+  ],
+  "author": "Simon Godbout",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SimonGodbout/simongodbout.com/issues"
+  },
+  "homepage": "https://github.com/SimonGodbout/simongodbout.com#readme"
+}

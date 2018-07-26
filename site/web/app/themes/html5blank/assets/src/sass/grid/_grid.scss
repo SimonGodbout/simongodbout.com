@@ -1,0 +1,68 @@
+
+.container {
+  @include container;
+}
+
+.container-fluid {
+  @include container-fluid;
+}
+
+.row {
+  @include row;
+}
+
+.row-flex {
+  @include row-flex;
+}
+
+.row-grid {
+  @include row-grid;
+
+  >[class*='col-'] {
+    @supports(grid-gap: 0) {
+      grid-column: span 12;
+    }
+  }
+}
+
+@each $breakpoint-key, $breakpoint-value in $breakpoints {
+  // grid
+
+  @for $i from 1 through 12 {
+    .col-#{$breakpoint-key}-#{$i} {
+      @include col-size($breakpoint-key, $size: $i);
+    }
+
+    .col-#{$breakpoint-key}-offset-#{$i} {
+      @include col-offset($breakpoint-key, $size: $i);
+    }
+
+    .col-#{$breakpoint-key}-push-#{$i} {
+      @include col-push($breakpoint-key, $size: $i);
+    }
+  }
+
+
+
+  // css grid
+  .row-grid {
+    @for $i from 1 through 12 {
+      .col-#{$breakpoint-key}-#{$i} {
+        @include col-grid-size($breakpoint-key, $size: $i);
+      }
+    }
+  }
+
+  // hidden classes
+  @include mq ($until: #{$breakpoint-key}) {
+    @include hidden('.hidden-#{$breakpoint-key}');
+  }
+
+  // visibility classes
+  .visible-#{$breakpoint-key} {
+    display: none !important;
+  }
+  @include mq ($until: #{$breakpoint-key}) {
+    @include visible('.visible-#{$breakpoint-key}');
+  }
+}

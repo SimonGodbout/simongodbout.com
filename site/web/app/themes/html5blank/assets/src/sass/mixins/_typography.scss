@@ -1,0 +1,45 @@
+@mixin body {
+  margin: 0;
+  font-family: $font-family-body;
+  font-size: 1.6rem;
+  background-color: map-get(map-get($bg-colors, 'base'), 'charcoal');
+  color: map-get($text-colors, 'white');
+}
+
+@mixin p {
+  line-height: 1.5;
+  margin: 0 0 1em 0;
+}
+
+@mixin ul {
+  margin: 0 0 1em 0;
+
+}
+
+@mixin heading {
+  font-family: $font-family-heading;
+  margin: 0 0 0.75em 0;
+}
+
+@mixin h1 {
+  @include heading;
+  @include responsive('font-size', (xs: 3rem, xl: 8rem));
+  font-family: $font-family-h1;
+}
+
+@mixin h2 {
+  @include heading;
+  
+}
+
+@mixin h3 {
+  @include heading;
+}
+
+@mixin h4 {
+  @include heading;
+}
+
+@mixin h5 {
+  @include heading;
+}

@@ -18,3 +18,7 @@ web/.htaccess
 # Composer
 vendor/*
 !vendor/.gitkeep
+
+# NPM
+node_modules
+

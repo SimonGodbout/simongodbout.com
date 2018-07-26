@@ -1,0 +1,13 @@
+$susy: ('columns': susy-repeat(12), 'gutters': 0);
+$grid-gutter: 15px;
+
+$mq-breakpoints: (
+    xs:  320px,
+    sm:  550px,
+    md: 768px,
+    lg: 992px,
+    xl: 1280px,
+    xxl: 1440px,
+);
+
+$breakpoints: $mq-breakpoints

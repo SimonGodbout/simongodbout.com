@@ -1,0 +1,17 @@
+$text-colors: ('white': #FFFFFF, 'blue': #638B96, 'green': #289C96, 'pink': #ED2E7A);
+$bg-base: ('white': #FFFFFF, 'grey': #CCCCCC, 'charcoal':  #1C2730, 'blue': #263F4F);
+$bg-pink: ('bright': #ED2E7A, 'regular': #B42964, 'dark': #672245, 'darker': #271C2C);
+$bg-green: ('bright': #33B573, 'regular': #1D5742, 'dark': #174137, 'darker': #112A2A);
+$bg-blue: ('bright': #0F7A94, 'regular': #0F6178, 'dark': #103848 , 'darker': #0F404F, 'darkest': '#0E242F');
+
+$bg-colors: (
+  'base': $bg-base,
+  'pink': $bg-pink,
+  'green': $bg-green,
+  'blue': $bg-blue
+);
+
+
+$font-family-body: 'Play', sans-serif;
+$font-family-h1: 'Permanent Marker', cursive;
+$font-family-heading: 'Righteous', cursive;

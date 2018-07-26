@@ -1,0 +1,112 @@
+@mixin hidden($parent) {
+  #{$parent} {
+    display: none !important
+  }
+}
+
+@mixin visible($parent) {
+  #{$parent} {
+    display: block !important;
+  }
+}
+
+@mixin clearfix {
+  &::after {
+    clear: both;
+    content: '';
+    display: block;
+  }
+}
+
+@mixin container {
+  margin: 0 auto;
+  padding-left: floor(($grid-gutter / 2));
+  padding-right: ceil(($grid-gutter / 2));
+  max-width: 1600px;
+
+  @include mq($from: md) {
+    width: 88vw;
+  }
+}
+
+@mixin container-fluid {
+  padding-left: floor(($grid-gutter / 2));
+  padding-right: ceil(($grid-gutter / 2));
+}
+
+@mixin col {
+  float: left;
+  padding: 0 $grid-gutter / 2;
+  position: relative;
+}
+
+@mixin col-grid {
+  float: left;
+  padding: 0 $grid-gutter / 2;
+  position: relative;
+
+  @supports(grid-gap: 0) {
+    float: none;
+  }
+}
+
+@mixin row {
+  @include clearfix;
+  margin: 0;
+  margin-left: ceil(($grid-gutter / -2));
+  margin-right: floor(($grid-gutter / -2));
+}
+
+@mixin row-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+@mixin row-grid {
+  @include clearfix;
+  margin: 0;
+  margin-left: ceil(($grid-gutter / -2));
+  margin-right: floor(($grid-gutter / -2));
+
+  @supports(grid-gap: 0) {
+    display: grid;
+    grid-gap: $grid-gutter;
+    grid-template-columns: repeat(12, 1fr);
+
+    &::after {
+      display: none;
+    }
+  }
+}
+
+@mixin col-size($breakpoint, $size: 1) {
+  @include col;
+  @include mq($from: $breakpoint) {
+    width: span($size of 12);
+  }
+}
+
+@mixin col-grid-size($breakpoint, $size: 1) {
+  @include col-grid;
+  @include mq($from: $breakpoint) {
+    width: span($size of 12);
+
+    @supports(grid-gap: 0) {
+      grid-column: span $size;
+      width: auto;
+    }
+  }
+}
+
+@mixin col-offset($breakpoint, $size: 1) {
+  @include mq($from: $breakpoint) {
+    margin-left: span($size of 12);
+  }
+}
+
+@mixin col-push($breakpoint, $size: 1) {
+  @include mq($from: $breakpoint) {
+    margin-right: span($size of 12);
+  }
+}
